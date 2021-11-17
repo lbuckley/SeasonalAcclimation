@@ -43,16 +43,19 @@ ct$DOYn[which(ct$Hemisphere=="s" & ct$DOYn<0)]= ct$DOYn[which(ct$Hemisphere=="s"
 ct= ct[-which(ct$Hemisphere=="s"),]
 
 #code aquatic and terrestrial
-ct$habitat="terrestrial"
-ct$habitat[which(ct$Taxa %in% c("crayfish","fish","sea urchin","stingray","trout"))] <-"aquatic"
+ct$Habitat="terrestrial"
+ct$Habitat[which(ct$Taxa %in% c("crayfish","fish","sea urchin","stingray","trout"))] <-"aquatic"
 
+#update metric names
+ct$Metric[ct$Metric=="CTmax"]<-"Critical thermal maximum"
+ct$Metric[ct$Metric=="CTmin"]<-"Critical thermal minimum"
 
 #plot
 setwd("/Volumes/GoogleDrive/My Drive/Buckley/Work/SeasonalAcclimation/figures/")
 pdf("SeasonalTolerance.pdf", height = 8, width = 8)
-ggplot(data=ct, aes(x=DOYn, y = norm, color=Taxa, group=SpecPop, lty=habitat)) + 
+ggplot(data=ct, aes(x=DOYn, y = norm, color=Taxa, group=SpecPop, lty=Habitat)) + 
   geom_point()+geom_line()+  #geom_smooth(method="loess", se=FALSE)+
   facet_wrap(~Metric, ncol=1)+theme_bw()+
-  ylab("Seasonal Change in Temperature (C)") +xlab("Day of Year")+
+  ylab("Seasonal change in temperature (°C)") +xlab("Day of year")+
   scale_color_viridis(discrete=TRUE, option="turbo")
 dev.off()
