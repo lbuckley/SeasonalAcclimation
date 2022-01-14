@@ -52,10 +52,11 @@ ct$Metric[ct$Metric=="CTmin"]<-"Critical thermal minimum"
 
 #plot
 setwd("/Volumes/GoogleDrive/My Drive/Buckley/Work/SeasonalAcclimation/figures/")
-pdf("SeasonalTolerance.pdf", height = 8, width = 8)
+pdf("SeasonalTolerance.pdf", height = 4, width = 8)
 ggplot(data=ct, aes(x=DOYn, y = norm, color=Taxa, group=SpecPop, lty=Habitat)) + 
   geom_point()+geom_line()+  #geom_smooth(method="loess", se=FALSE)+
-  facet_wrap(~Metric, ncol=1)+theme_bw()+
+  facet_wrap(~Metric, ncol=2)+theme_bw()+
   ylab("Seasonal change in temperature (°C)") +xlab("Day of year")+
-  scale_color_viridis(discrete=TRUE, option="turbo")
+  scale_color_viridis(discrete=TRUE, option="turbo")+
+  scale_linetype_manual(values=c("dashed","solid"))
 dev.off()
