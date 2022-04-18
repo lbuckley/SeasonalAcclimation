@@ -50,13 +50,20 @@ ct$Habitat[which(ct$Taxa %in% c("crayfish","fish","sea urchin","stingray","trout
 ct$Metric[ct$Metric=="CTmax"]<-"Critical thermal maximum"
 ct$Metric[ct$Metric=="CTmin"]<-"Critical thermal minimum"
 
-#plot
-setwd("/Volumes/GoogleDrive/My Drive/Buckley/Work/SeasonalAcclimation/figures/")
-pdf("SeasonalTolerance.pdf", height = 4, width = 8)
-ggplot(data=ct, aes(x=DOYn, y = norm, color=Taxa, group=SpecPop, lty=Habitat)) + 
+fig= ggplot(data=ct, aes(x=DOYn, y = norm, color=Taxa, group=SpecPop, lty=Habitat)) + 
   geom_point()+geom_line()+  #geom_smooth(method="loess", se=FALSE)+
   facet_wrap(~Metric, ncol=2)+theme_bw()+
   ylab("Seasonal change in temperature (°C)") +xlab("Day of year")+
   scale_color_viridis(discrete=TRUE, option="turbo")+
   scale_linetype_manual(values=c("dashed","solid"))
+
+#plot
+setwd("/Volumes/GoogleDrive/My Drive/Buckley/Work/SeasonalAcclimation/figures/")
+pdf("SeasonalTolerance.pdf", height = 4, width = 8)
+fig
+dev.off()
+
+
+tiff("SeasonalTolerance.tiff", units="in", width=8, height=4, res=300)
+fig
 dev.off()
