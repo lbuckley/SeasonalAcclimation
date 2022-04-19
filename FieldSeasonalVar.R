@@ -49,6 +49,7 @@ ct$Habitat[which(ct$Taxa %in% c("crayfish","fish","sea urchin","stingray","trout
 #update metric names
 ct$Metric[ct$Metric=="CTmax"]<-"Critical thermal maximum"
 ct$Metric[ct$Metric=="CTmin"]<-"Critical thermal minimum"
+ct$Metric= factor(ct$Metric, levels=c("Critical thermal minimum","Critical thermal maximum"))
 
 fig= ggplot(data=ct, aes(x=DOYn, y = norm, color=Taxa, group=SpecPop, lty=Habitat)) + 
   geom_point()+geom_line()+  #geom_smooth(method="loess", se=FALSE)+
